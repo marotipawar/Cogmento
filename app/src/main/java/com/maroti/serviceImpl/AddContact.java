@@ -90,9 +90,9 @@ public class AddContact extends CongmentoServiceImpl {
         lastName.sendKeys(contact.getLastName());
         company.sendKeys(contact.getCompany());
         selectCompany.click();
-        access.click();
-        clickAccess.click();
-        selectAccess.click();
+      //  access.click();
+       // clickAccess.click();
+      //  selectAccess.click();
         email.sendKeys(contact.getEmail());
         category.click();
         selectCategory.click();
