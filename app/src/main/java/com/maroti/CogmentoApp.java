@@ -16,7 +16,7 @@ import java.net.URISyntaxException;
 
 public class CogmentoApp {
     public static void main(String[] args) throws FileNotFoundException, URISyntaxException, InterruptedException {
-        MyWebBrowser browser =MyChromeBrowser.getInstance(new ChromeDriver());
+        MyWebBrowser browser = MyChromeBrowser.getInstance(new ChromeDriver());
         CogmentoService login = new Login(browser.getDriver());
         login.login(System.getProperty("user.username"), System.getProperty("user.password"));
         CogmentoService addContact = new AddContact(browser.getDriver());
@@ -35,13 +35,17 @@ public class CogmentoApp {
         con.setCountry("India");
         con.setPhone("2001542");
         con.setDept("Computer");
-        addContact.addContacts(con);
-     /*   ExcelDataReader.readExcelData().forEach(contact -> {
+        con.setDay("5");
+        con.setMonth("May");
+        con.setYear("2012");
+        //addContact.addContacts(con);
+
+        ExcelDataReader.readExcelData().forEach(contact -> {
             try {
                 addContact.addContacts(contact);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-        });*/
+        });
     }
 }

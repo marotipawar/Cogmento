@@ -1,10 +1,10 @@
 package com.maroti.serviceImpl;
 
+import com.maroti.factory.MyBrowser;
+import com.maroti.factory.MyWebBrowser;
 import com.maroti.model.Contact;
 import com.maroti.services.CogmentoService;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
 
 public abstract class CongmentoServiceImpl implements CogmentoService {
 
@@ -20,6 +20,7 @@ public abstract class CongmentoServiceImpl implements CogmentoService {
 
         return false;
     }
+
 
     @Override
     public void addContacts(Contact contact) throws InterruptedException {

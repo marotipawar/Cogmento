@@ -1,11 +1,15 @@
 package com.maroti.serviceImpl;
 
+import com.maroti.factory.MyBrowser;
 import com.maroti.model.Contact;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import javax.xml.xpath.XPath;
 import java.util.List;
@@ -29,7 +33,7 @@ public class AddContact extends CongmentoServiceImpl {
 
     @FindBy(xpath = "//button[@class='ui small fluid positive toggle button']")
     private WebElement access;
-    @FindBy(xpath = "//div[@class='ui active visible fluid multiple selection dropdown']")
+    @FindBy(xpath = "//div[@role='listbox']")
     private WebElement clickAccess;
     @FindBy(xpath = "//div[@class='selected item']/span")
     private WebElement selectAccess;
@@ -58,8 +62,8 @@ public class AddContact extends CongmentoServiceImpl {
     private WebElement postCode;
     @FindBy(xpath = "(//input[@class='search'])[4]")
     private WebElement country;
-    @FindBy(xpath = "//div[@class='visible menu transition']/div/span")
-    private List<WebElement> selectCountries;
+    @FindBy(xpath = "(//div[@class='visible menu transition']/div/span)[99]")
+    private WebElement countryIndia;
     @FindBy(xpath = "(//input[@name='value'])[3]")
     private WebElement phone;
     @FindBy(xpath = "//input[@name='department']")
@@ -73,6 +77,8 @@ public class AddContact extends CongmentoServiceImpl {
     private List<WebElement> selectMonth;
     @FindBy(xpath = "//input[@name='year']")
     private WebElement year;
+    @FindBy(xpath = "//button[@class='ui linkedin button']")
+    private WebElement btnSubmit;
 
 
     public AddContact(WebDriver driver) {
@@ -82,7 +88,7 @@ public class AddContact extends CongmentoServiceImpl {
 
     @Override
     public void addContacts(Contact contact) throws InterruptedException {
-        Thread.sleep(10000);
+        Thread.sleep(2000);
         Actions act = new Actions(driver);
         act.moveToElement(moveContact).build().perform();
         btnContact.click();
@@ -90,9 +96,6 @@ public class AddContact extends CongmentoServiceImpl {
         lastName.sendKeys(contact.getLastName());
         company.sendKeys(contact.getCompany());
         selectCompany.click();
-      //  access.click();
-       // clickAccess.click();
-      //  selectAccess.click();
         email.sendKeys(contact.getEmail());
         category.click();
         selectCategory.click();
@@ -103,29 +106,19 @@ public class AddContact extends CongmentoServiceImpl {
         city.sendKeys(contact.getCity());
         state.sendKeys(contact.getState());
         postCode.sendKeys(contact.getPostCode());
-        country.click();
-        selectCountries.forEach(c->{
-            if(c.getText().equals(contact.getCountry())){
-                c.click();
-            }
-        });
-
+        JavascriptExecutor ex = (JavascriptExecutor) driver;
+        ex.executeScript("arguments[0].click();", country);
+        countryIndia.click();
         phone.sendKeys(contact.getPhone());
         department.sendKeys(contact.getDept());
-        day.sendKeys(contact.getDay());
-
-        selectMonth.forEach(month->{
-            if(month.getText().equals(contact.getMonth())){
-                month.click();
+        /*day.sendKeys(contact.getDay());
+        month.click();
+        selectMonth.forEach(mon -> {
+            if (mon.getText().equals(contact.getMonth())) {
+                mon.click();
             }
         });
-        year.sendKeys(contact.getYear());
-
-
-
-
-
-
-
+        year.sendKeys(contact.getYear());*/
+        btnSubmit.click();
     }
 }

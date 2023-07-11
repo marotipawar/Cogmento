@@ -11,11 +11,15 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class ExcelDataReader {
 
+    private static SimpleDateFormat df = new SimpleDateFormat("dd-MMMMM-yyyy");
     private static List<Contact> list;
     public static List<Contact> readExcelData() throws URISyntaxException {
         list = new ArrayList<>();
@@ -40,6 +44,13 @@ public class ExcelDataReader {
                 con.setCountry(row.getCell(10).toString());
                 con.setPhone(row.getCell(11).toString());
                 con.setDept(row.getCell(12).toString());
+              /*  String date = row.getCell(14).toString();
+                String format = df.format(new Date(date));
+                Date d=df.parse(date);
+
+                con.setDay(String.valueOf(d.getDay()));
+                con.setMonth(String.valueOf(d.getMonth()));
+                con.setYear(String.valueOf(d.getYear()));*/
                 list.add(con);
             }
         } catch (FileNotFoundException e) {
