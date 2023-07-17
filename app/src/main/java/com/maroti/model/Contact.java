@@ -25,8 +25,6 @@ public class Contact {
     private String country;
     private String phone;
     private String dept;
-    private String day;
-    private String month;
-    private String year;
+
 
 }

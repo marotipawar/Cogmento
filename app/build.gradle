@@ -18,7 +18,7 @@ repositories {
 }
 
 dependencies {
-    // This dependency is used by the application.
+
     implementation 'com.google.guava:guava:31.1-jre'
     compileOnly 'org.projectlombok:lombok:1.18.28'
     annotationProcessor 'org.projectlombok:lombok:1.18.28'
@@ -29,6 +29,7 @@ dependencies {
     implementation 'commons-io:commons-io:2.11.0'
     implementation 'org.apache.poi:poi:3.9'
     implementation 'org.apache.poi:poi-ooxml:3.9'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.0'
 
 
 }
