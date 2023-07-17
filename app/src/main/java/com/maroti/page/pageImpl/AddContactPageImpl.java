@@ -1,20 +1,17 @@
-package com.maroti.serviceImpl;
+package com.maroti.page.pageImpl;
 
-import com.maroti.factory.MyBrowser;
 import com.maroti.model.Contact;
-import org.openqa.selenium.By;
+import com.maroti.page.AddContactPage;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 
-import javax.xml.xpath.XPath;
 import java.util.List;
 
-public class AddContact extends CongmentoServiceImpl {
+public class AddContactPageImpl implements AddContactPage {
 
     @FindBy(xpath = "//a[@href='/contacts']")
     private WebElement moveContact;
@@ -80,9 +77,10 @@ public class AddContact extends CongmentoServiceImpl {
     @FindBy(xpath = "//button[@class='ui linkedin button']")
     private WebElement btnSubmit;
 
+    private WebDriver driver;
 
-    public AddContact(WebDriver driver) {
-        super(driver);
+    public AddContactPageImpl(WebDriver driver) {
+        this.driver = driver;
         PageFactory.initElements(driver, this);
     }
 

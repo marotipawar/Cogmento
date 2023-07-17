@@ -1,8 +1,6 @@
-package com.maroti.serviceImpl;
+package com.maroti.page.pageImpl;
 
-import com.maroti.factory.MyBrowser;
-import com.maroti.model.Contact;
-import com.maroti.util.MyPropertiesFileReader;
+import com.maroti.page.LoginPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -10,7 +8,7 @@ import org.openqa.selenium.support.PageFactory;
 
 import java.io.FileNotFoundException;
 
-public class Login extends CongmentoServiceImpl {
+public class LoginPageImpl implements LoginPage {
     @FindBy(xpath = "//ul[@class='rd-navbar-nav']/a")
     private WebElement login;
     @FindBy(xpath = "(//div[@class='ui stacked segment']//input)[1]")
@@ -20,9 +18,8 @@ public class Login extends CongmentoServiceImpl {
     @FindBy(xpath = "//div[text()='Login']")
     private WebElement btnLogin;
 
-    public Login(WebDriver driver) throws FileNotFoundException {
-        super(driver);
-        super.driver = driver;
+    public LoginPageImpl(WebDriver driver) throws FileNotFoundException {
+
         PageFactory.initElements(driver, this);
 
     }
