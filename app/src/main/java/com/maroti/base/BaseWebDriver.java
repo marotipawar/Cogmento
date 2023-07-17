@@ -1,12 +1,15 @@
 package com.maroti.base;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WindowType;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import java.time.Duration;
-
+/*
+ * @Author : Maroti Pawar
+ * */
 @FunctionalInterface
 public interface BaseWebDriver {
 
@@ -51,4 +54,8 @@ public interface BaseWebDriver {
     }
 
 
+    public static void newTab(WebDriver driver, String url){
+        driver.switchTo().newWindow(WindowType.TAB);
+        driver.navigate().to(url);
+    }
 }

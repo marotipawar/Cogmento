@@ -1,4 +1,4 @@
-package com.maroti.util;
+package com.maroti.util.fileReaders;
 
 import java.io.File;
 import java.io.FileInputStream;
