@@ -30,6 +30,10 @@ public interface ExcelFileDataReader {
         return getSheet(fileName, sheetIndex);
     }
 
+    default Map getExcelData(String fileName, int sheetIndex) throws URISyntaxException, IOException {
+        return getExcelFileData(fileName, sheetIndex);
+
+    }
     public static FileInputStream loadExcelFile(String fileName) throws URISyntaxException {
         URL pathUrl = ExcelFileDataReader.class.getClassLoader().getResource(fileName);
         File file = new File(pathUrl.toURI());
@@ -55,7 +59,7 @@ public interface ExcelFileDataReader {
         return workbook.getSheetAt(sheetIndex);
     }
 
-    public static Map getExcelData(String fileName, int sheetIndex) throws URISyntaxException, IOException {
+    public static Map getExcelFileData(String fileName, int sheetIndex) throws URISyntaxException, IOException {
         XSSFSheet sheet = getSheet(fileName, sheetIndex);
         int rowNum = sheet.getLastRowNum();
         Map map = new LinkedHashMap();

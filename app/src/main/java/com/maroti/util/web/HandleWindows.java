@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-
 public interface HandleWindows {
 
 
@@ -58,6 +57,7 @@ public interface HandleWindows {
         switchPreviousTab(driver);
         Thread.sleep(4000);
         switchNextTab(driver);
+
     }
 
 }
