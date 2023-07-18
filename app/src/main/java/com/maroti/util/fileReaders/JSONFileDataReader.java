@@ -32,8 +32,11 @@ public interface JSONFileDataReader<T> {
 
     public static File loadJSONFile(String fileName) throws URISyntaxException, IOException {
         URL urlPath = JSONFileDataReader.class.getClassLoader().getResource(fileName);
-        File file = new File(urlPath.toURI());
-        if (file.exists()) {
+        File file = null;
+        if (urlPath != null) {
+            file = new File(urlPath.toURI());
+        }
+        if (file != null && file.exists()) {
             return file;
         }
         return null;
@@ -41,7 +44,7 @@ public interface JSONFileDataReader<T> {
 
     public static Map readJSONToMap(String fileName) throws URISyntaxException, IOException {
         File file = loadJSONFile(fileName);
-        if (file.exists()) {
+        if (file != null && file.exists()) {
             ObjectMapper mapper = new ObjectMapper();
             Map<?, ?> map = mapper.readValue(file, Map.class);
             return map;
@@ -52,7 +55,7 @@ public interface JSONFileDataReader<T> {
 
     public static List<Map> readJSONToList(String fileName) throws URISyntaxException, IOException {
         File file = loadJSONFile(fileName);
-        if (file.exists()) {
+        if (file != null && file.exists()) {
             ObjectMapper mapper = new ObjectMapper();
             List<Map> list = Arrays.asList(mapper.readValue(file, Map[].class));
             return list;

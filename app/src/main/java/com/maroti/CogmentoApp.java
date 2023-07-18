@@ -1,40 +1,21 @@
 package com.maroti;
 
+import com.maroti.base.BaseWebDriver;
+import com.maroti.util.web.HandleFrame;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+
 import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
+import java.util.List;
 
 public class CogmentoApp {
     public static void main(String[] args) throws FileNotFoundException, URISyntaxException, InterruptedException {
-      /*  MyWebBrowser browser = MyChromeBrowser.getInstance(new ChromeDriver());
-        LoginPage login = new LoginPageImpl(browser.getDriver());
-        login.login(System.getProperty("user.username"), System.getProperty("user.password"));
-        AddContactPage addContact = new AddContactPageImpl(browser.getDriver());
-
-
-        Contact con = new Contact();
-        con.setFirstName("Maroti");
-        con.setLastName("Pawar");
-        con.setCompany("Google");
-        con.setEmail("info@gmail.com");
-        con.setDescription("NO other job");
-        con.setStreet("MG Road");
-        con.setCity("Pune");
-        con.setState("Maharashtra");
-        con.setPostCode("10001");
-        con.setCountry("India");
-        con.setPhone("2001542");
-        con.setDept("Computer");
-        con.setDay("5");
-        con.setMonth("May");
-        con.setYear("2012");
-        //addContact.addContacts(con);
-
-        ExcelDataReader.readExcelData().forEach(contact -> {
-            try {
-                addContact.addContacts(contact);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-        });*/
+        WebDriver driver = BaseWebDriver.chrome("https://demoqa.com/nestedframes");
+        HandleFrame.switchFrame(driver, "frame1");
+        HandleFrame.switchFrame(driver, 0);
+        System.out.println(driver.findElement(By.tagName("p")).getText());
     }
+
 }

@@ -26,8 +26,11 @@ public interface PropertiesFileDataReader {
 
     public static Properties loadPropFile(String fileName) throws URISyntaxException, IOException {
         URL urlPth = PropertiesFileDataReader.class.getClassLoader().getResource(fileName);
-        File file = new File(urlPth.toURI());
-        if (file.exists()) {
+        File file = null;
+        if (urlPth != null) {
+            file = new File(urlPth.toURI());
+        }
+        if (file != null && file.exists()) {
             FileInputStream stream = new FileInputStream(file);
             Properties prop = new Properties();
             prop.load(stream);
