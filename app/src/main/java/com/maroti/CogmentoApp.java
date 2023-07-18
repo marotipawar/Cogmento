@@ -1,21 +1,20 @@
 package com.maroti;
 
+import com.aventstack.extentreports.Status;
 import com.maroti.base.BaseWebDriver;
-import com.maroti.util.web.HandleFrame;
-import org.openqa.selenium.By;
+import com.maroti.util.web.HandleScreenShot;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 
-import java.io.FileNotFoundException;
+
+import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.List;
+
 
 public class CogmentoApp {
-    public static void main(String[] args) throws FileNotFoundException, URISyntaxException, InterruptedException {
-        WebDriver driver = BaseWebDriver.chrome("https://demoqa.com/nestedframes");
-        HandleFrame.switchFrame(driver, "frame1");
-        HandleFrame.switchFrame(driver, 0);
-        System.out.println(driver.findElement(By.tagName("p")).getText());
+    public static void main(String[] args) throws IOException, URISyntaxException, InterruptedException {
+        WebDriver driver = BaseWebDriver.chrome("https://www.google.com");
+        String path=HandleScreenShot.getScreenShotForReports(driver, Status.FAIL,"Example");
+        System.out.println("Path :"+path);
     }
 
 }

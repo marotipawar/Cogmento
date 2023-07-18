@@ -10,6 +10,28 @@ import java.util.List;
  * @Author : Maroti Pawar
  * */
 public interface HandleFrame {
+
+    default void switchToFrame(WebDriver driver, int index) {
+        switchFrame(driver, index);
+    }
+
+    default void switchToFrame(WebDriver driver, String nameOrId) {
+        switchFrame(driver, nameOrId);
+    }
+
+    default void switchToFrame(WebDriver driver, WebElement element) {
+        switchFrame(driver, element);
+    }
+
+    default int getTotalFrame(WebDriver driver) {
+        return getFramesSize(driver);
+    }
+
+    default List<WebElement> getTotalListOfFrame(WebDriver driver) {
+        return getTotalFrames(driver);
+    }
+
+
     public static void switchFrame(WebDriver driver, int index) {
         driver.switchTo().frame(index);
     }
