@@ -74,10 +74,10 @@ public interface ScreenShot {
 
         if (status.equals(Status.PASS)) {
             FileUtils.copyFile(srcFile, new File(createDirPassScreenShot, fileName));
-            return createDirPassScreenShot.getAbsolutePath() + "\\" + fileName;
+            return "/passScreenShot/" + fileName;
         } else if (status.equals(Status.FAIL)) {
             FileUtils.copyFile(srcFile, new File(createDirFailedScreenShot, fileName));
-            return createDirFailedScreenShot.getAbsolutePath() + "\\" + fileName;
+            return "/failedScreenShot/"+ fileName;
         }
         return null;
     }
