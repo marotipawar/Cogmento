@@ -19,7 +19,7 @@ import static com.maroti.util.fileReaders.ExcelFileLoader.getSheet;
 @FunctionalInterface
 public interface ExcelFileDataReader {
 
-    public Object[][] getData(String fileName, int sheetIndex);
+
 
     default FileInputStream loadFile(String fileName) throws URISyntaxException {
         return loadExcelFile(fileName);
@@ -32,6 +32,7 @@ public interface ExcelFileDataReader {
     default XSSFSheet getSheetAt(String fileName, int sheetIndex) throws URISyntaxException, IOException {
         return getSheet(fileName, sheetIndex);
     }
+    public Object[][] getData(String fileName, int sheetIndex);
 
     default Map getExcelSheetDataAsMap(String fileName, int sheetIndex) throws URISyntaxException, IOException {
         return getExcelSheetsDataAsMap(fileName, sheetIndex);
