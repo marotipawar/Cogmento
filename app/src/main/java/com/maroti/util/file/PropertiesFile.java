@@ -1,4 +1,4 @@
-package com.maroti.util.fileReaders;
+package com.maroti.util.file;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -11,21 +11,19 @@ import java.util.Properties;
  * @Author : Maroti Pawar
  * */
 @FunctionalInterface
-public interface PropertiesFileDataReader {
-
-
+public interface PropertiesFile {
     Properties loadProps(String fileName);
 
     default Properties getPropertiesFile(String fileName) throws URISyntaxException, IOException {
-        return loadPropFile(fileName);
+        return load(fileName);
     }
 
     default void loadPropertiesFileToSystemProps(String fileName) throws URISyntaxException, IOException {
         System.setProperties(getPropertiesFile(fileName));
     }
 
-    public static Properties loadPropFile(String fileName) throws URISyntaxException, IOException {
-        URL urlPth = PropertiesFileDataReader.class.getClassLoader().getResource(fileName);
+    public static Properties load(String fileName) throws URISyntaxException, IOException {
+        URL urlPth = PropertiesFile.class.getClassLoader().getResource(fileName);
         File file = null;
         if (urlPth != null) {
             file = new File(urlPth.toURI());

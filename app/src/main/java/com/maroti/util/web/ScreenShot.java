@@ -15,17 +15,13 @@ import java.util.Date;
  * @Author : Maroti Pawar
  */
 
-public interface HandleScreenShot {
+public interface ScreenShot {
 
-    default String getScreensShot(WebDriver driver, String fileName) throws IOException {
-        return getScreenShot(driver, fileName);
+    default String getScreenShot(WebDriver driver, String fileName) throws IOException {
+        return screenShot(driver, fileName);
     }
 
-    default String getScreenShotForReport(WebDriver driver, Status status, String fileName) throws IOException {
-        return getScreenShotForReports(driver, status, fileName);
-    }
-
-    public static String getScreenShot(WebDriver driver, String fileName) throws IOException {
+    public static String screenShot(WebDriver driver, String fileName) throws IOException {
 
         TakesScreenshot ts = (TakesScreenshot) driver;
         File srcFile = ts.getScreenshotAs(OutputType.FILE);
@@ -47,16 +43,19 @@ public interface HandleScreenShot {
 
         return null;
     }
+    default String getScreenShotForReport(WebDriver driver, Status status, String fileName) throws IOException {
+        return forReports(driver, status, fileName);
+    }
 
-    public static String getScreenShotForReports(WebDriver driver, Status status, String fileName) throws IOException {
+    public static String forReports(WebDriver driver, Status status, String fileName) throws IOException {
         TakesScreenshot ts = (TakesScreenshot) driver;
         File srcFile = ts.getScreenshotAs(OutputType.FILE);
         String destFileName = fileName + "_" + generateDate() + ".png";
-        return storeScreenShot(srcFile, status, destFileName);
+        return store(srcFile, status, destFileName);
     }
 
 
-    public static String storeScreenShot(File srcFile, Status status, String fileName) throws IOException {
+    public static String store(File srcFile, Status status, String fileName) throws IOException {
         String pathPassScreenShot = System.getProperty("user.dir") + "/passScreenShot/";
         File createDirPassScreenShot = new File(pathPassScreenShot);
 

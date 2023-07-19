@@ -1,4 +1,4 @@
-package com.maroti.util.fileReaders;
+package com.maroti.util.file;
 
 
 import org.apache.poi.xssf.usermodel.XSSFRow;
@@ -9,46 +9,53 @@ import java.io.*;
 import java.net.URISyntaxException;
 import java.util.*;
 
-import static com.maroti.util.fileReaders.ExcelFileLoader.loadExcelFile;
-import static com.maroti.util.fileReaders.ExcelFileLoader.getExcelWorkBook;
-import static com.maroti.util.fileReaders.ExcelFileLoader.getSheet;
+import static com.maroti.util.file.ExcelFileLoader.*;
 
 /*
  * @Author : Maroti Pawar
  * */
 @FunctionalInterface
-public interface ExcelFileDataReader {
-
-
+public interface ExcelFile {
 
     default FileInputStream loadFile(String fileName) throws URISyntaxException {
-        return loadExcelFile(fileName);
+        return load(fileName);
     }
 
     default XSSFWorkbook getWorkbook(String fileName) throws URISyntaxException, IOException {
-        return getExcelWorkBook(fileName);
+        return workBook(fileName);
     }
 
     default XSSFSheet getSheetAt(String fileName, int sheetIndex) throws URISyntaxException, IOException {
-        return getSheet(fileName, sheetIndex);
+        return sheet(fileName, sheetIndex);
     }
+
     public Object[][] getData(String fileName, int sheetIndex);
 
-    default Map getExcelSheetDataAsMap(String fileName, int sheetIndex) throws URISyntaxException, IOException {
-        return getExcelSheetsDataAsMap(fileName, sheetIndex);
+    default Map getSheetAsMap(String fileName, int sheetIndex) throws URISyntaxException, IOException {
+        return sheetAsMap(fileName, sheetIndex);
     }
 
-    default List<List<String>> getExcelSheetDataAsList(String fileName, int sheetIndex) throws URISyntaxException, IOException {
-        return getExcelSheetsDataAsList(fileName, sheetIndex);
+    default List<List<String>> getSheetAsList(String fileName, int sheetIndex) throws URISyntaxException, IOException {
+        return sheetAsList(fileName, sheetIndex);
     }
 
-    default Object[][] getExcelSheetDataAsObjectArray(String fileName, int sheetIndex) throws URISyntaxException, IOException {
-        return getExcelSheetsDataAsObjectArray(fileName, sheetIndex);
+    default Object[][] getSheetAsObjectArray(String fileName, int sheetIndex) throws URISyntaxException, IOException {
+        return sheetAsObjectArray(fileName, sheetIndex);
     }
 
-    public static Object[][] getExcelSheetsDataAsObjectArray(String fileName, int sheetIndex) throws URISyntaxException, IOException {
+    public static XSSFWorkbook workBook(String fileName) throws URISyntaxException, IOException {
+        FileInputStream stream = load(fileName);
+        return new XSSFWorkbook(stream);
+    }
 
-        XSSFSheet sheet = getSheet(fileName, sheetIndex);
+    public static XSSFSheet sheet(String fileName, int sheetIndex) throws URISyntaxException, IOException {
+        XSSFWorkbook workbook = workBook(fileName);
+        return workbook.getSheetAt(sheetIndex);
+    }
+
+    public static Object[][] sheetAsObjectArray(String fileName, int sheetIndex) throws URISyntaxException, IOException {
+
+        XSSFSheet sheet = sheet(fileName, sheetIndex);
         int rowNum = sheet.getLastRowNum();
         int colNum = sheet.getRow(0).getLastCellNum();
 
@@ -70,8 +77,8 @@ public interface ExcelFileDataReader {
         return obj;
     }
 
-    public static List<List<String>> getExcelSheetsDataAsList(String fileName, int sheetIndex) throws URISyntaxException, IOException {
-        XSSFSheet sheet = getSheet(fileName, sheetIndex);
+    public static List<List<String>> sheetAsList(String fileName, int sheetIndex) throws URISyntaxException, IOException {
+        XSSFSheet sheet = sheet(fileName, sheetIndex);
         List rowList = new ArrayList();
 
         int rowNum = sheet.getLastRowNum();
@@ -94,8 +101,8 @@ public interface ExcelFileDataReader {
         return rowList;
     }
 
-    public static Map getExcelSheetsDataAsMap(String fileName, int sheetIndex) throws URISyntaxException, IOException {
-        XSSFSheet sheet = getSheet(fileName, sheetIndex);
+    public static Map sheetAsMap(String fileName, int sheetIndex) throws URISyntaxException, IOException {
+        XSSFSheet sheet = sheet(fileName, sheetIndex);
         int rowNum = sheet.getLastRowNum();
         Map map = new LinkedHashMap();
         for (int i = 0; i < rowNum; i++) {
@@ -114,14 +121,5 @@ public interface ExcelFileDataReader {
         return map;
     }
 
-   /* public static void main(String[] args) throws URISyntaxException, IOException {
-        Object[][] obj=getExcelSheetsDataAsObjectArray("cogmento_contacts.xlsx", 0);
-        System.out.println(obj);
-        for(Object[] ob : obj){
-            for (Object o : ob){
-                System.out.print(" "+o);
-            }
-            System.out.println(" ");
-        }
-    }*/
+
 }

@@ -1,4 +1,4 @@
-package com.maroti.util.fileReaders;
+package com.maroti.util.file;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -13,25 +13,25 @@ import java.util.Map;
 /*
  * @Author : Maroti Pawar
  * */
-public interface JSONFileDataReader<T> {
+public interface JSONFile<T> {
 
-    T readJsonFile(String file);
+    T read(String file);
 
 
-    default File loadJsonFile(String fileName) throws URISyntaxException, IOException {
-        return loadJSONFile(fileName);
+    default File loadJSONFile(String fileName) throws URISyntaxException, IOException {
+        return load(fileName);
     }
 
-    default Map jsonToMap(String fileName) throws URISyntaxException, IOException {
-        return readJSONToMap(fileName);
+    default Map jSONToMap(String fileName) throws URISyntaxException, IOException {
+        return toMap(fileName);
     }
 
-    default List<Map> jsonToList(String fileName) throws URISyntaxException, IOException {
-        return readJSONToList(fileName);
+    default List<Map> jSONToList(String fileName) throws URISyntaxException, IOException {
+        return toList(fileName);
     }
 
-    public static File loadJSONFile(String fileName) throws URISyntaxException, IOException {
-        URL urlPath = JSONFileDataReader.class.getClassLoader().getResource(fileName);
+    public static File load(String fileName) throws URISyntaxException, IOException {
+        URL urlPath = JSONFile.class.getClassLoader().getResource(fileName);
         File file = null;
         if (urlPath != null) {
             file = new File(urlPath.toURI());
@@ -42,8 +42,8 @@ public interface JSONFileDataReader<T> {
         return null;
     }
 
-    public static Map readJSONToMap(String fileName) throws URISyntaxException, IOException {
-        File file = loadJSONFile(fileName);
+    public static Map toMap(String fileName) throws URISyntaxException, IOException {
+        File file = load(fileName);
         if (file != null && file.exists()) {
             ObjectMapper mapper = new ObjectMapper();
             Map<?, ?> map = mapper.readValue(file, Map.class);
@@ -53,8 +53,8 @@ public interface JSONFileDataReader<T> {
         return null;
     }
 
-    public static List<Map> readJSONToList(String fileName) throws URISyntaxException, IOException {
-        File file = loadJSONFile(fileName);
+    public static List<Map> toList(String fileName) throws URISyntaxException, IOException {
+        File file = load(fileName);
         if (file != null && file.exists()) {
             ObjectMapper mapper = new ObjectMapper();
             List<Map> list = Arrays.asList(mapper.readValue(file, Map[].class));
