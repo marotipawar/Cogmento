@@ -2,38 +2,30 @@ package com.maroti.util.report;
 
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
-import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
-import com.maroti.base.BaseWebDriver;
 import com.maroti.model.Report;
-import com.maroti.util.web.ScreenShot;
-import org.openqa.selenium.WebDriver;
 
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/*
+ * @Author : Maroti Pawar
+ * */
 public interface Extent {
-    public static ExtentSparkReporter getSparkInstance(Report report) {
-        ExtentSparkReporter reporter = new ExtentSparkReporter(report.getPath());
-        reporter.getConf().setReportName(report.getReportName());
-        reporter.getConf().setDocumentTitle(report.getDocumentTitle());
+    public static ExtentSparkReporter getSparkInstance(String documentTitle, String reportName) throws IOException {
+        ExtentSparkReporter reporter = new ExtentSparkReporter(store(reportName));
+        reporter.getConf().setReportName(reportName);
+        reporter.getConf().setDocumentTitle(documentTitle);
         return reporter;
     }
 
-    public static ExtentReports getInstance(Report report) {
-        ExtentSparkReporter reporter = getSparkInstance(report);
+    public static ExtentReports getExtentInstance(String documentTitle, String reportName) throws IOException {
+        ExtentSparkReporter reporter = getSparkInstance(documentTitle, reportName);
         ExtentReports reports = new ExtentReports();
         reports.attachReporter(reporter);
         return reports;
-    }
-
-    public static ExtentTest createTest(Report report) {
-        ExtentReports reports = getInstance(report);
-        ExtentTest test=reports.createTest(report.getTestName());
-        report.setReports(reports);
-        return test;
     }
 
 
@@ -46,12 +38,8 @@ public interface Extent {
         }
         SimpleDateFormat sf = new SimpleDateFormat("ddMMMyyy_HHmm");
         String date = sf.format(new Date());
-        return new File(file + "\\"+fileName + "_" + date + ".html");
+        return new File(file + "\\" + fileName + "_" + date + ".html");
     }
-
-
-
-
 
 
    /* public static void main(String[] args) throws IOException {

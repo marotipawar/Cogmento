@@ -56,7 +56,7 @@ public interface ScreenShot {
 
 
     public static String store(File srcFile, Status status, String fileName) throws IOException {
-        String pathPassScreenShot = System.getProperty("user.dir") + "/passScreenShot/";
+        String pathPassScreenShot = System.getProperty("user.dir") + "/app/build/passScreenShot/";
         File createDirPassScreenShot = new File(pathPassScreenShot);
 
         boolean checkPassDir = createDirPassScreenShot.isDirectory();
@@ -64,7 +64,7 @@ public interface ScreenShot {
             createDirPassScreenShot.mkdir();
         }
 
-        String pathFailedScreenShot = System.getProperty("user.dir") + "/failedScreenShot/";
+        String pathFailedScreenShot = System.getProperty("user.dir") + "/app/build/failedScreenShot/";
         File createDirFailedScreenShot = new File(pathFailedScreenShot);
 
         boolean checkFailedDir = createDirFailedScreenShot.isDirectory();
@@ -74,10 +74,10 @@ public interface ScreenShot {
 
         if (status.equals(Status.PASS)) {
             FileUtils.copyFile(srcFile, new File(createDirPassScreenShot, fileName));
-            return "/passScreenShot/" + fileName;
+            return "/app/build/passScreenShot/" + fileName;
         } else if (status.equals(Status.FAIL)) {
             FileUtils.copyFile(srcFile, new File(createDirFailedScreenShot, fileName));
-            return "/failedScreenShot/"+ fileName;
+            return "/app/build/failedScreenShot/"+ fileName;
         }
         return null;
     }
